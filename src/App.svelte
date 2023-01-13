@@ -14,7 +14,6 @@
     .container {
         width: 1000px;
         background: rgb(128, 172, 128);
-        height: 300px;
         font-size: 20px;
     }
 
