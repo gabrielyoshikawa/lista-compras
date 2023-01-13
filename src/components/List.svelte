@@ -1,31 +1,49 @@
 <script>
 
     import { onMount } from "svelte";
-
-    import { each } from "svelte/internal";
-    import App from "../App.svelte";
+    import { v4 as uuidv4 } from "uuid";
 
     import { items } from "../components/stores";
-    import Item from "./Item.svelte";
 
+    import Item from "./Item.svelte";
     import TodoApi from "./TodoApi";
 
-    function handleNewItem(e) {}
+    import newItem from "./NewItem.svelte";
+    import NewItem from "./NewItem.svelte";
 
-    function handleUpdate(e) {}
+    function handleNewItem(e) {
+        $items = [
+            {
+                id: uuidv4(),
+                text: e.detail,
+                completed: false
+            },
+            ...$items
+        ];
 
-    function handleDelete(e) {}
+        TodoApi.save($items);
+    }
+
+    function handleUpdate(e) {
+        const index = $items.findIndex(item => item.id === e.detail.id);
+        $items[index] = e.detail;
+        TodoApi.save($items);
+    }
+
+    function handleDelete(e) {
+        $items = $items.filter(item => item.id !== e.detail);
+        TodoApi.save($items);
+    }
 
     onMount(async () => {
         $items = await TodoApi.getAll();
-        $items = [];
     });
 </script>
 
 <div class="list">
-
+    <NewItem on:newitem={handleNewItem} />
     {#each $items as item (item)}
-        <Item {...item} />
+        <Item {...item} on:update={handleUpdate} on:delete={handleDelete}/>
     {:else}
         <p class="list-status">No items Exists</p>
     {/each}

@@ -12,9 +12,9 @@
 
 <style>
     .container {
-        width: 1500px;
+        width: 1000px;
         background: rgb(128, 172, 128);
-        height: 200px;
+        height: 300px;
         font-size: 20px;
     }
 
