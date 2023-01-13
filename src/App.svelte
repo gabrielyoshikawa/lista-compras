@@ -1,6 +1,7 @@
 <script>
     import Header from "./components/Header.svelte";
     import List from "./components/List.svelte";
+    import Item from "./components/Item.svelte";
 </script>
 
 <div class="container">
