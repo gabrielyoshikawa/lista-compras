@@ -13,8 +13,7 @@
     let value = "";
 </script>
 
-<input type="text" on:keyup={handleKeyUp} bind:value placeholder="+ Add Item">
-
+<input type="text" on:keyup={handleKeyUp} bind:value placeholder="+ Adicionar produto">
 
 <style>
     input {
@@ -27,8 +26,9 @@
         background: rgba(0, 0, 0, 0.25);
         color: white;
         font-weight: bold;
-        font-size: 1em;
+        font-size: 2em;
         cursor: pointer;
+        width: 100%;
     }
 
     input::placeholder {

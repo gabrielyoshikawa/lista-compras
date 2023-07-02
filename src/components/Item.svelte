@@ -1,8 +1,6 @@
 <script>
-// @ts-nocheck
-
+    // @ts-nocheck
     import { createEventDispatcher } from "svelte";
-
     export let id, text, completed;
 
     const dispatch = createEventDispatcher();
@@ -12,7 +10,7 @@
     }
 
     function handleDoubleClick() {
-        const yes = confirm("Are you sure you wish to delete this item?");
+        const yes = confirm("Quer deletar esse item da lista?");
 
         if (yes) {
             dispatch("delete", id);
@@ -21,30 +19,21 @@
 </script>
 
 <div class="item" class:completed on:dblclick={handleDoubleClick}>
+    <input class="text-input" type="text" bind:value={text}
+        readonly={completed}
+        on:keyup={({ key, target }) => key === "Enter" && target.blur()}
+        on:blur={() => triggerUpdate()}
+    />
 
-    <input 
-        class="text-input"
-        type="text" 
-        bind:value={text}
-        readonly={completed} 
-        on:keyup={({ key, target }) => key === 'Enter' && target.blur()}
-        on:blur= {() => triggerUpdate() } />
-
-    <input 
-        class="completed-checkbox" 
-        type="checkbox"  
-        bind:checked={completed}
-        on:change={() => triggerUpdate()} />
-
+    <input class="completed-checkbox" type="checkbox" bind:checked={completed} on:change={() => triggerUpdate()}/>
 </div>
 
 <style>
-
     .item {
         display: flex;
         align-items: center;
         padding: 15px;
-        background: white ;
+        background: white;
     }
 
     .item:focus-within {
@@ -57,7 +46,7 @@
         border: none;
         outline: none;
         font-weight: 500;
-        font-size: 1em;
+        font-size: 2em;
         color: gray;
     }
 

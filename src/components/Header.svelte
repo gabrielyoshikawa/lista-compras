@@ -2,24 +2,22 @@
     import { items } from "../components/stores";
 
     $: itemCount = $items.length;
-    $: completedItemCount = $items.filter(item => item.completed).length;
-
+    $: completedItemCount = $items.filter((item) => item.completed).length;
 </script>
 
+<header>
+    <p>Lista de Compras</p>
+    <p>{completedItemCount}/{itemCount}</p>
+</header>
+
 <style>
-    .header {
+    header {
+        min-height: 50px;
+        width: 40%;
+        background-color: rgb(228, 171, 85);
         display: flex;
+        color: rgb(54, 50, 33);
+        font-size: 2em;
         justify-content: space-between;
-        align-items: center;
-        padding: 15px;
-        color: white;
-        font-weight: bold;
-        font-size: 1.5em;
-        background: black;
     }
 </style>
-
-<div class="header">
-    <span>To-do List</span>
-    <span>{completedItemCount}/{itemCount}</span>
-</div>

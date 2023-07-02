@@ -1,14 +1,9 @@
 <script>
-
     import { onMount } from "svelte";
     import { v4 as uuidv4 } from "uuid";
-
     import { items } from "../components/stores";
-
     import Item from "./Item.svelte";
     import TodoApi from "./TodoApi";
-
-    import newItem from "./NewItem.svelte";
     import NewItem from "./NewItem.svelte";
 
     function handleNewItem(e) {
@@ -16,28 +11,28 @@
             {
                 id: uuidv4(),
                 text: e.detail,
-                completed: false
+                completed: false,
             },
-            ...$items
+            ...$items,
         ];
 
         TodoApi.save($items);
     }
 
     function handleUpdate(e) {
-        const index = $items.findIndex(item => item.id === e.detail.id);
+        const index = $items.findIndex((item) => item.id === e.detail.id);
         $items[index] = e.detail;
         TodoApi.save($items);
     }
 
     function handleDelete(e) {
-        $items = $items.filter(item => item.id !== e.detail);
+        $items = $items.filter((item) => item.id !== e.detail);
         TodoApi.save($items);
     }
 
     let itemsSorted = [];
 
-    $: {
+     $: {
         itemsSorted = [...$items];
         itemsSorted.sort((a, b) => {
             if (a.completed && b.completed) return 0;
@@ -54,25 +49,15 @@
 <div class="list">
     <NewItem on:newitem={handleNewItem} />
     {#each itemsSorted as item (item)}
-        <Item {...item} on:update={handleUpdate} on:delete={handleDelete}/>
-    {:else}
-        <p class="list-status">No items Exists</p>
+        <Item {...item} on:update={handleUpdate} on:delete={handleDelete} />
     {/each}
 </div>
 
 <style>
-
-    .list{
-        padding: 15px;        
-    }
-
-    .list-status{
-        margin: 0%;
-        text-align: center;
-        color: white;
-        font-weight: bold;
-        font-size: 1.1em;
+    .list {
+        width: 40%;
+        min-height: 85vh;
+        background-color: rgb(146, 91, 9);
     }
 
 </style>
-
